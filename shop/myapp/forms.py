@@ -1,13 +1,14 @@
-from . models import Product
 from django import forms
+from .models import Product
 
-class ProductForm():
+
+class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = {'name','description', 'price','image'}
-        widgets={
-            'name':forms.TextInput(attrs={'class':'form-control'}),
-            'description':forms.Textarea(attrs={'class':'form-control'}),
-            'price':forms. NumberInput(attrs={'class':'form-control'}),
-            'image':forms.FileInput(attrs={'class':'form-control'}),
+        fields = ['name', 'description', 'price', 'image']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
         }
