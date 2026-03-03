@@ -10,4 +10,4 @@ urlpatterns=[
 
 
 if settings.DEBUG:
-    urlpatterns +=static(settings.MEDIA_URLS,document_root=settings.MEDIA_URLS)
+    urlpatterns +=static(settings.MEDIA_URL,document_root=settings.MEDIA_URL)
