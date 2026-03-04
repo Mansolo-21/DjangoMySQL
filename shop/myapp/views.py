@@ -11,10 +11,10 @@ def add_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()  # ✅ save to DB
-            return redirect('index')  # ✅ redirect after save
+            form.save()  
+            return redirect('index') 
         else:
-            print(form.errors)  # ✅ print errors if invalid
+            print(form.errors)  
     else:
         form = ProductForm()
-    return render(request, 'index.html', {"form": form})
+    return render(request, 'addproduct.html', {"form": form})
