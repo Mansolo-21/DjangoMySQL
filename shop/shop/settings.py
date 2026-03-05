@@ -77,12 +77,11 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'your_db_name',
+        'NAME': 'shop',
         'USER': 'root',
         'PASSWORD': '',
-        'OPTIONS': {
-            'unix_socket': '/opt/lampp/var/mysql/mysql.sock',
-        },
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
