@@ -6,6 +6,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.index, name='index'),
     path('addproduct/', views.add_product, name='addproduct'),
+    path('callback/',views.callback,name='callback'),
+    path('pay/',views.lipa_na_mpesa,name='pay')
 ]
 
 if settings.DEBUG:
