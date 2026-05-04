@@ -1,5 +1,9 @@
 from django.shortcuts import render, redirect
 from .forms import ProductForm
+from django.http import JsonResponse
+from .mpesa import lipa_na_mpesa
+from .forms import MpesaPaymentForm
+
 
 
 def index(request):
@@ -18,3 +22,16 @@ def add_product(request):
     else:
         form = ProductForm()
     return render(request, 'addproduct.html', {"form": form})
+
+def payment_page(request):
+    form = MpesaPaymentForm(request.POST or None)
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        if form.is_valid():
+            phone_number = form.cleaned_data['phone_number']
+            amount = form.cleaned_data['amount']
+            response = lipa_na_mpesa(phone_number, amount)
+            return JsonResponse(response)
+        else:
+            return JsonResponse({'errors': form.errors}, status=400)
+    return render(request, 'payment.html', {'form': form})
+

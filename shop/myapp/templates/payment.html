@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>M-Pesa Payment</h2>
+    <form id="paymentForm" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary mt-2">Pay Now</button>
+    </form>
+
+    <div id="result" class="mt-3"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $('#paymentForm').on('submit', function(e){
+        e.preventDefault();
+
+        $.ajax({
+            url: '',
+            method: 'POST',
+            data: $(this).serialize(),
+            success: function(response){
+                $('#result').html('<pre>' + JSON.stringify(response, null, 2) + '</pre>');
+            },
+            error: function(xhr){
+                if(xhr.responseJSON && xhr.responseJSON.errors){
+                    let errors = xhr.responseJSON.errors;
+                    let errorText = '';
+                    for (let field in errors){
+                        errorText += field + ': ' + errors[field].join(', ') + '\n';
+                    }
+                    $('#result').html('<pre style="color:red">' + errorText + '</pre>');
+                } else {
+                    $('#result').html('<pre style="color:red">An error occurred</pre>');
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
